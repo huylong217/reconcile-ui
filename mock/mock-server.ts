@@ -10,7 +10,7 @@ import { accessTokenAuth } from './security'
 import { connector, summarise } from 'swagger-routes-express'
 
 const app = express()
-const port = 9528
+const port = process.env.PORT || 8000;
 
 // Compression
 app.use(compression())
@@ -59,7 +59,9 @@ app.use((req, res) => {
 const server = http.createServer(app)
 
 // Listen on provided port, on all network interfaces.
-server.listen(port)
+server.listen(port, () => {
+  console.log("App is running on port " + port);
+});
 server.on('error', onError)
 console.log('Mock server started on port ' + port + '!')
 
